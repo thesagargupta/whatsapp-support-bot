@@ -55,7 +55,7 @@ class Config:
     BUSINESS_EMAIL = os.getenv('BUSINESS_EMAIL', 'contact@cafirm.com')
     EMERGENCY_NUMBER = os.getenv('EMERGENCY_NUMBER', '+91-XXXXXXXXXX')
     BUSINESS_HOURS_START = int(os.getenv('BUSINESS_HOURS_START', 9))
-    BUSINESS_HOURS_END = int(os.getenv('BUSINESS_HOURS_END', 21))
+    BUSINESS_HOURS_END = int(os.getenv('BUSINESS_HOURS_END', 18))  # 6 PM
     
     # Server Configuration
     PORT = int(os.getenv('PORT', 3000))
@@ -161,7 +161,7 @@ class MenuSystem:
         self.user_data: Dict[str, Dict] = {}
     
     def is_business_hours(self) -> bool:
-        """Check if current time is within business hours"""
+        """Check if current time is within business hours (9 AM to 6 PM)"""
         current_hour = datetime.now().hour
         return Config.BUSINESS_HOURS_START <= current_hour < Config.BUSINESS_HOURS_END
     
