@@ -160,11 +160,6 @@ class MenuSystem:
         self.user_sessions: Dict[str, Dict] = {}
         self.user_data: Dict[str, Dict] = {}
     
-    def is_business_hours(self) -> bool:
-        """Check if current time is within business hours (9 AM to 6 PM)"""
-        current_hour = datetime.now().hour
-        return Config.BUSINESS_HOURS_START <= current_hour < Config.BUSINESS_HOURS_END
-    
     def get_main_menu(self) -> str:
         """Get the main menu"""
         return (
@@ -265,19 +260,6 @@ class MenuSystem:
             '• Timeline & Fees\n'
             '• Benefits\n\n'
             '(Reply 1-6)'
-        )
-    
-    def get_business_hours_message(self) -> str:
-        """Message for outside business hours"""
-        return (
-            '⏰ *Thank you for contacting us!*\n\n'
-            f'Our office hours: {Config.BUSINESS_HOURS_START} AM - {Config.BUSINESS_HOURS_END} PM (Mon-Sat)\n\n'
-            'Your message is important. You can:\n'
-            '1. Leave a message (we\'ll respond in morning)\n'
-            '2. Request callback tomorrow\n'
-            f'3. Send email: {Config.BUSINESS_EMAIL}\n'
-            f'4. Emergency? Call: {Config.EMERGENCY_NUMBER}\n\n'
-            'Or continue with our automated service.'
         )
     
     def handle_quick_command(self, command: str, user_id: str) -> Optional[str]:
@@ -1009,11 +991,6 @@ def webhook_receive():
         
         # No authorization required - open to everyone
         logger.info(f'👤 Processing message for user: {from_number}')
-        
-        # Check business hours for first-time users
-        if from_number not in menu_system.user_sessions and not menu_system.is_business_hours():
-            whatsapp_service.send_message(from_number, menu_system.get_business_hours_message())
-            return 'OK', 200
         
         # Process menu navigation
         response = menu_system.handle_user_input(from_number, message_text)
