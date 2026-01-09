@@ -267,18 +267,18 @@ class MenuSystem:
             '(Reply 1-6)'
         )
     
-    def get_business_hours_message(self) -> str:
-        """Message for outside business hours"""
-        return (
-            '⏰ *Thank you for contacting us!*\n\n'
-            f'Our office hours: {Config.BUSINESS_HOURS_START} AM - {Config.BUSINESS_HOURS_END} PM (Mon-Sat)\n\n'
-            'Your message is important. You can:\n'
-            '1. Leave a message (we\'ll respond in morning)\n'
-            '2. Request callback tomorrow\n'
-            f'3. Send email: {Config.BUSINESS_EMAIL}\n'
-            f'4. Emergency? Call: {Config.EMERGENCY_NUMBER}\n\n'
-            'Or continue with our automated service.'
-        )
+    # def get_business_hours_message(self) -> str:
+    #     """Message for outside business hours"""
+    #     return (
+    #         '⏰ *Thank you for contacting us!*\n\n'
+    #         f'Our office hours: {Config.BUSINESS_HOURS_START} AM - {Config.BUSINESS_HOURS_END} PM (Mon-Sat)\n\n'
+    #         'Your message is important. You can:\n'
+    #         '1. Leave a message (we\'ll respond in morning)\n'
+    #         '2. Request callback tomorrow\n'
+    #         f'3. Send email: {Config.BUSINESS_EMAIL}\n'
+    #         f'4. Emergency? Call: {Config.EMERGENCY_NUMBER}\n\n'
+    #         'Or continue with our automated service.'
+    #     )
     
     def handle_quick_command(self, command: str, user_id: str) -> Optional[str]:
         """Handle quick commands that work from anywhere"""
